@@ -12,10 +12,13 @@ Recomputing these prefixes for every request is expensive.
 This benchmark compares:
 
 • Baseline: vLLM without prefix caching
+
 • Optimized: vLLM + LMCache with KV cache reuse
 
 The goal is to quantify:
 
 • Latency improvement
+
 • Throughput improvement
+
 • GPU memory trade-offs
