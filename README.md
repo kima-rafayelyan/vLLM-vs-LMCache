@@ -35,6 +35,8 @@ The goal is to quantify:
 ```bash
 pip install -U -q vllm lmcache transformers accelerate pandas
 
+```
+
 ## 🧩 Experiments
 
 ### 1️⃣ vLLM Baseline (No Prefix Caching)
