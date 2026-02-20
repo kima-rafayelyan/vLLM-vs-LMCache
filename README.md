@@ -34,3 +34,34 @@ The goal is to quantify:
 
 ```bash
 pip install -U -q vllm lmcache transformers accelerate pandas
+
+## 🧩 Experiments
+
+### 1️⃣ vLLM Baseline (No Prefix Caching)
+
+- Prefix caching disabled  
+- Every request recomputes the full context  
+- Represents a **cold-start production scenario**
+
+### 2️⃣ vLLM + LMCache
+
+- Prefix caching enabled  
+- KV cache shared using `LMCacheConnectorV1`  
+- Two runs:
+  - **Cold run:** fills cache
+  - **Warm run:** reuses cached KV states
+
+---
+
+## 📊 Results
+
+| Method        | Latency (s) | Throughput (req/s) | GPU Memory (MB) |
+|---------------|-------------|-------------------|----------------|
+| vLLM Cold     | 8.15        | 0.12              | 11,950         |
+| LMCache Warm  | 0.31        | 3.25              | 13,416         |
+
+## 🚀 Speedup
+
+With LMCache, throughput is **27.08× faster** compared to the vLLM cold run.  
+
+This demonstrates how **prefix caching and KV reuse** can drastically reduce latency for long-context LLM workloads.
